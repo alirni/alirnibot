@@ -1,0 +1,23 @@
+{
+  "name": "alirnibot",
+  "version": "1.0.0",
+  "description": "my personal bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alirni/alirnibot.git"
+  },
+  "author": "Ali Ramezani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alirni/alirnibot/issues"
+  },
+  "homepage": "https://github.com/alirni/alirnibot#readme",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "telegram-bot-api.js": "^0.10.5"
+  }
+}
