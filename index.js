@@ -1,59 +1,64 @@
-(()=>{
-  'use strict';
+'use strict';
 
-  const
-    token = 'xxx',
+const
+chalk = require('chalk'),
+error = chalk.bold.bgRed,
+success = chalk.blue.bold,
 
-    chalk = require('chalk'),
-    error = chalk.bold.bgRed,
-    success = chalk.blue.bold,
+bot = require('./bot'),
 
-    telegram = require('telegram-bot-api.js').default,
+// bot.onMessage(new RegExp('^/start[ ]*$'), async (message) => {
+//   console.log(success('run start command,'), message.chat);
 
-    botOption = {
-      autoChatActionUploadOnly: true,
-      autoUpdate: true,
-    },
+//   try {
+//     const
+//       bio = 'من علی رمضانی هستم ✋️\n🎓 کارشناسی برنامه نویسی تحت وب دارم و در کنار کار برنامه نویسی به گرافیک هم علاقه دارم.\nدر حوضه‌ی Progressive Web Applications فعالیت دارم و جزء مشارکت کنندگان کامپوننت های Polymer هستم.\nدر حال حاظر در شرکت پیشتازان توسعه به عنوان توسعه دهنده وب مشغولم.',
+//       menu = '📌 نمونه کار ها: /portfolio',
+//       contact = '▪️ تلگرام: @AliRniE\n▪️ ایمیل: aliramezani19.1@gmail.com\n▪️ گیتهاب: https://github.com/alirni',
+//       text = `... سلام ${message.chat.first_name} عزیز خوش آمدید.\n\n${bio}\n\n.: www.ramezany.com :.\n${menu}\n\n${contact}`
+//     ;
+//     await bot.sendMessage({
+//       chat_id: message.chat.id,
+//       text: text,
+//     });
 
-    bot = new telegram(token, botOption)
-  ;
+//     console.log(success('message sent'));
+//   }
+//   catch (error) {
+//     console.log(error('message error:'), error);
+//   }
+// });
 
-  bot.onMessage(new RegExp('^/start[ ]*$'), async (message) => {
-    console.log(success('run start command,'), message.chat);
+// bot.onMessage(new RegExp('^/portfolio[ ]*$'), async (message) => {
+//   console.log(success('run portfolio command,'), message.chat);
 
-    try {
-      const
-        bio = 'من علی رمضانی هستم ✋️\n🎓 کارشناسی برنامه نویسی تحت وب دارم و در کنار کار برنامه نویسی به گرافیک هم علاقه دارم.\nدر حوضه‌ی Progressive Web Applications فعالیت دارم و جزء مشارکت کنندگان کامپوننت های Polymer هستم.\nدر حال حاظر در شرکت پیشتازان توسعه به عنوان توسعه دهنده وب مشغولم.',
-        menu = '📌 نمونه کار ها: /portfolio',
-        contact = '▪️ تلگرام: @AliRniE\n▪️ ایمیل: aliramezani19.1@gmail.com\n▪️ گیتهاب: https://github.com/alirni',
-        text = `... سلام ${message.chat.first_name} عزیز خوش آمدید.\n\n${bio}\n\n.: www.ramezany.com :.\n${menu}\n\n${contact}`
-      ;
-      await bot.sendMessage({
-        chat_id: message.chat.id,
-        text: text,
-      });
+//   try {
+//     const text = '▪️ طراحی سایت: /web\n▪️ طراحی لوگو: /logo\n▪️ کارت ویزیت: /card';
+//     await bot.sendMessage({
+//       chat_id: message.chat.id,
+//       text: text,
+//     });
 
-      console.log(success('message sent'));
-    }
-    catch (error) {
-      console.log(error('message error:'), error);
-    }
-  });
+//     console.log(success('message sent'));
+//   }
+//   catch (error) {
+//     console.log(error('message error:'), error);
+//   }
+// });
 
-  bot.onMessage(new RegExp('^/portfolio[ ]*$'), async (message) => {
-    console.log(success('run portfolio command,'), message.chat);
+registerAllCommand = () => {
+  bot.onMessage(new RegExp('^/start[ ]*$'), startCommand);
 
-    try {
-      const text = '▪️ طراحی سایت: /web\n▪️ طراحی لوگو: /logo\n▪️ کارت ویزیت: /card';
-      await bot.sendMessage({
-        chat_id: message.chat.id,
-        text: text,
-      });
+  //portfolioCommand();
+  console.log(success('registered all command'));
+},
 
-      console.log(success('message sent'));
-    }
-    catch (error) {
-      console.log(error('message error:'), error);
-    }
-  });
+startCommand = (message) => {
+  console.log(success('run start command,'), message);
+}
+;
+
+//main function
+(() => {
+  registerAllCommand();
 })();
