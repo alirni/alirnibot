@@ -9,13 +9,15 @@ bot = require('./bot'),
 text = require('./text.json'),
 
 registerAllCommand = () => {
-  bot.onMessage(new RegExp('^/start$'), startCommand);
-  bot.onMessage(new RegExp('^/contact$'), contactCommand);
-  bot.onMessage(new RegExp('^/portfolio$'), portfolioCommand);
-  bot.onMessage(new RegExp('^/programming$'), programmingCommand);
-  bot.onMessage(new RegExp('^/logo$'), logoCommand);
-  bot.onMessage(new RegExp('^/card$'), cardCommand);
-  bot.onMessage(new RegExp('^/web$'), webCommand);
+  bot.onMessage(new RegExp('^/start$', 'i'), startCommand);
+  bot.onMessage(new RegExp('^/contact$', 'i'), contactCommand);
+  bot.onMessage(new RegExp('^/portfolio$', 'i'), portfolioCommand);
+  bot.onMessage(new RegExp('^/programming$', 'i'), programmingCommand);
+  bot.onMessage(new RegExp('^/logo$', 'i'), logoCommand);
+  bot.onMessage(new RegExp('^/card$', 'i'), cardCommand);
+  bot.onMessage(new RegExp('^/web$', 'i'), webCommand);
+
+  bot.onMessage(new RegExp('^/channel [@a-z]+ .+'), channelSendMessage);
 
   console.log(success('registered all command'));
 },
@@ -130,6 +132,27 @@ webCommand = async (message) => {
     });
 
     console.log(success('message sent'));
+  }
+  catch (error) {
+    console.log(error('message error:'), error);
+  }
+},
+
+/**
+ * send message to channel
+ * example: /channel @channelUsername message
+ */
+channelSendMessage = async (message) => {
+  console.log(success('run channelSendMessage,'), message.text);
+  try {
+    const
+    messageRegExp = new RegExp('^/channel ([@a-z]+) (.+)'),
+    botMessage = messageRegExp.exec(message.text);
+
+    await bot.sendMessage({
+      chat_id: botMessage[1],
+      text: botMessage[2],
+    });
   }
   catch (error) {
     console.log(error('message error:'), error);
